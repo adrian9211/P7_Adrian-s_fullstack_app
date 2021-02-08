@@ -9,7 +9,7 @@ npm install
 ```
 ##To run Frontend server:
 ```
-cd frontend/p7-adrian-nykiel-vue-app
+cd frontend/p7_adrian_vue_app
 ```
 ```
 npm run serve
