@@ -1,13 +1,16 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <div id="app" class="container is-max-desktop">
     <router-view />
   </div>
 </template>
 
-<style lang="scss" scoped>
+<script>
+export default {
+  name: "App"
+};
+</script>
 
+<style>
+/* import style bulma */
+@import "~bulma/css/bulma.css";
 </style>
