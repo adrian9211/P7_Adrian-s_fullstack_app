@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk')
 let db = require('../dbConfig');
+let fs = require('fs');
 
 exports.uploadPost = (req, res, next) => {
   const url = req.protocol + '://' + req.get('host');
@@ -107,22 +108,7 @@ exports.editPost = (req, res, next) => {
 }
 
 exports.deletePost = (req, res, next) => {
-  let sqlSelect = 'SELECT * FROM Posts WHERE PostID = "'+req.params.postId+'";'
-    db.query(sqlSelect, function (err, result, fields) {
-      if (err) return res.json({
-        status: err.status,
-        message: err.sqlMessage,
-        data: err
-      })
-      const s3 = new AWS.S3()
-      s3.deleteObject(params, function (err, data) {
-        if (err) return res.json({
-          status: err.Code,
-          message: err.Message,
-          data: err
-        })
-      })
-    })
+  
     let sqlDelete = 'DELETE FROM Posts WHERE PostID = "'+req.params.postId+'";'
     db.query(sqlDelete, function (err, result, fields) {
       if (err) return res.json({
@@ -136,7 +122,8 @@ exports.deletePost = (req, res, next) => {
         data: null
       })
     })
-  }
+}
+
 exports.getAllPosts = (req, res, next) => {
   let sql = 'SELECT Posts.PostID, Posts.UserID, Posts.Title, Posts.ImageURL, Posts.DateTime, Users.Username FROM Posts INNER JOIN Users ON Posts.UserID=Users.UserID;'
   db.query(sql, function (err, result, fields) {
