@@ -6,7 +6,7 @@ let jwtString = jwtConfig.jwtString
 
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 12).then(hash => {
-    let sql = 'INSERT INTO Users (Username, Email, Password) VALUES ("'+req.body.username+'", "'+req.body.email+'", "'+hash+'")'
+    let sql = 'INSERT INTO Users (Name, Username, Email, Password) VALUES ("'+req.body.name+'", "'+req.body.username+'", "'+req.body.email+'", "'+hash+'")'
        db.query(sql, function (err, result, fields) {
       if (err) {
         if (err.sqlMessage.includes('Username'))

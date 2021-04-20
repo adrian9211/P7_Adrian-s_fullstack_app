@@ -8,6 +8,12 @@
             </div>
 
             <div>
+              <label for="name"><b>Name</b></label>
+              <input v-model="name" @blur="checkUserInput"  @input="checkUserInput($event); enableSubmitButton();" type="text" placeholder="Enter Name" name="name" pattern="^[a-zA-Z0-9]{1,}$" required>
+              <p style="text-align: center; font-size: 14px" hidden>Required Field! Only Letters!</p>
+            </div>
+
+            <div>
               <label for="username"><b>Username</b></label>
               <input v-model="username" @blur="checkUserInput"  @input="checkUserInput($event); enableSubmitButton();" type="text" placeholder="Enter Username" name="username" pattern="^[a-zA-Z0-9]{1,}$" required>
               <p style="text-align: center; font-size: 14px" hidden>Required Field! Only Numbers And Letters!</p>
@@ -37,6 +43,7 @@ export default {
   name: 'RegistrationForm',
   data() {
     return {
+      name: '',
       username: '',
       email: '',
       password: '',
@@ -80,6 +87,7 @@ export default {
       document.getElementById('loadingGif').removeAttribute('hidden')
       axios.post('http://localhost:3000/api/auth/signup',
         {
+        name: this.name,
         username: this.username,
         email: this.email,
         password: this.password,

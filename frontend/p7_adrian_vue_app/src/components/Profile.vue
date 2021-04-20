@@ -1,20 +1,24 @@
 <template>
     <div id="profileContainer">
-        <div style="margin-bottom: 15%" v-if="!deleteAccount">
+        <div style="margin-bottom: 10%" v-if="!deleteAccount">
             <h2>User ID</h2>
             <p style="word-wrap:break-word;">{{ userDetails.UserID }}</p>
         </div>
-        <div style="margin-bottom: 15%"  v-if="!deleteAccount">
+        <div style="margin-bottom: 10%"  v-if="!deleteAccount">
+            <h2>Name</h2>
+            <p style="word-wrap:break-word;">{{ userDetails.Name }}</p>
+        </div>
+        <div style="margin-bottom: 10%"  v-if="!deleteAccount">
             <h2>Username</h2>
             <p style="word-wrap:break-word;">{{ userDetails.Username }}</p>
         </div>
-        <div style="margin-bottom: 15%"  v-if="!deleteAccount">
+        <div style="margin-bottom: 10%"  v-if="!deleteAccount">
             <h2>Email</h2>
             <p style="word-wrap:break-word;">{{ userDetails.Email }}</p>
         </div>
-        <button v-if="!deleteAccount" @click.prevent="deleteAccount = !deleteAccount" type="submit">Delete Profile</button>
+        <button v-if="!deleteAccount" @click.prevent="deleteAccount = !deleteAccount" type="submit">Delete Account</button>
         <div v-else>
-            <p style="color: black; text-align: center;">Are you sure you want to delete your profile?</p>
+            <p style="color: black; text-align: center;">Are you sure you want to delete your account?</p>
             <div id="containerYesNo" style="display: flex; justify-content: space-around">
                 <button style="width: 30%" @click.prevent="deleteProfile" type="submit">Yes</button>
                 <button style="width: 30%" @click.prevent="deleteAccount = !deleteAccount">No</button>

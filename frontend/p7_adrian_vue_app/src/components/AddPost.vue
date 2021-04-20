@@ -5,15 +5,15 @@
 
         <div class="uploadContainer">
 
-            <h1>Share Your Gif here</h1>
+            <h1>Share Your thoughts </h1>
 
             <div>
-                <label for="title"><b>Title</b></label>
+                <label for="title"><b>Title of your subject</b></label>
                 <input @input="validateFileInput($event)" v-model="title" type="text" name="title">
             </div>
 
             <div class="uploadfilecontainer">
-                <label for="file"><b>Upload your file</b></label>
+                <label for="file"><b>Upload your profile photo</b></label>
                 <br>
                 <input accept="image/gif, image/jpeg, image/png" pattern="^.*\.(jpg|jpeg|png|gif)$" type="file" name="file" @change="validateFileInput($event), previewFile($event)">
                 <img id="imagepreview" />
@@ -108,11 +108,23 @@ export default {
 .uploadfilecontainer {
     margin: 5% 0;
     display: flex;
+    align-items: center;
+  justify-content: center;
     flex-flow: column;
 }
 
 .uploadfilecontainer > img {
-    width: 100%;
+    
+    width: 25%;
+}
+
+.uploadfilecontainer > button {
+    margin: 5% 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    width: 15rem;
 }
 
 input[type=file] {

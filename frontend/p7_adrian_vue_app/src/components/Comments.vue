@@ -1,9 +1,10 @@
 <template>
     <div>
         <div style="scroll-behavior: smooth; width: 80%" :style="{'padding-left': `${depth * 5}%`}">
-            <h4 style="color: red; word-wrap: break-word;">{{ node.Username }}<span style="word-wrap: break-word;" v-if="node.ReplyTo !== undefined">{{ ' ' + '>' + ' ' + node.ReplyTo }}</span></h4>
+            <h2 style="color: black; display: inline; ">Post Author Username : </h2>
+            <h3 style="color: blue; word-wrap: break-word; display: inline;">{{ node.Username }}<span style="word-wrap: break-word;" v-if="node.ReplyTo !== undefined">{{ ' ' + '>' + ' ' + node.ReplyTo }}</span></h3>
             <div :key="componentKeyEdit" style="flex-flow: row; justify-content: space-around; align-items: center">
-                <p style="word-wrap:break-word; color: black;">{{ node.Comment }}</p>
+                <p style="word-wrap:break-word; color: black;">Comment :{{ node.Comment }}</p>
             </div>
             <div class="commentIconContainer">
                 <div :key="componentKey" style="min-width: 50%; display: flex; justify-content: space-between">

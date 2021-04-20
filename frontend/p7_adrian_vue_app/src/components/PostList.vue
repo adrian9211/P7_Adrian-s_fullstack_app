@@ -4,8 +4,11 @@
             <h1>Start sharing your gif with the community</h1>
         </div>
         <div v-else class="imagetitlecontainer" v-for="post in sortPostsDifferentUser" :key="post.postID">
-            <h3 style="color: black;">Post Author Username : {{post.Username }}</h3>
-            <h2 style="margin-bottom: 4%; word-wrap:break-word;">{{ post.Title }}</h2>
+            <h2 style="color: black; display: inline;">Post Author Username : </h2>
+            <h3 style="color: blue; display: inline;">{{post.Username }}</h3>
+            <p></p>
+            <h2 style="color: black; display: inline;">Title of subject : </h2>
+            <h3 style=" color: blue; margin-bottom: 4%; word-wrap:break-word; display: inline;">{{ post.Title }}</h3>
             <img :src="post.ImageURL" alt="">
             <div class="iconcontainer">
                 <div :key="componentKey" class="icons1">
@@ -285,16 +288,16 @@ h3 {
     padding: 1% 0;
 }
 
-.icons2 > * {
-    color: crimson;
-}
+
 
 .imagetitlecontainer {
+    margin-top: 4rem;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .imagetitlecontainer > img {
-    width: 100%;
+    width: 95%;
 }
 
 ::-webkit-scrollbar {
@@ -303,12 +306,12 @@ h3 {
     scrollbar-width: none;
 }
 
+
 @media only screen and (min-width: 760px) {
   .postcontainer {
     width: 70%;
   }
 }
-
 @media only screen and (min-width: 1025px) {
   .postcontainer {
     width: 40%;

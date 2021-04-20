@@ -1,7 +1,8 @@
 <template>
     <div class="singlepostcontainer" >
         <div class="singlepostimagecontainer">
-            <h2 style="word-wrap:break-word;">{{ post.Title }}</h2>
+            <h2 style="color: black; display: inline;">Title of subject : </h2>
+            <h3 style=" color: blue; word-wrap: break-word; display: inline;">{{ post.Title }}</h3>
             <img :src="post.ImageURL" alt="">
             <hr>
             <div class="singleposticoncontainer">
@@ -27,7 +28,7 @@
         </div>
         <form style="padding: 3% 1% 7% 1%">
             <input @input="validateComment($event)" placeholder="Write a comment..." type="text" name="comment" v-model="comment">
-            <button style="font-size: 20px; display: none" @click.prevent="postComment($event)" type="submit">...</button>
+            <button style="font-size: 20px; display: none" @click.prevent="postComment($event)" type="submit">Share</button>
         </form>
     </div>
 </template>
