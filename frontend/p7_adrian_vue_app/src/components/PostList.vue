@@ -1,5 +1,5 @@
 <template>
-    <div @scroll="handleScroll($event)" class="postcontainer" style="scrollbar-width: none;">
+    <div  class="postcontainer" style="scrollbar-width: none;">
         <div v-if="sortPostsDifferentUser.length < 1">
             <h1>Start sharing your gif with the community</h1>
         </div>
@@ -11,16 +11,15 @@
             <h3 style=" color: blue; margin-bottom: 4%; word-wrap:break-word; display: inline;">{{ post.Title }}</h3>
             <img :src="post.ImageURL" alt="">
             <div class="iconcontainer">
-                
                 <div :key="componentKey" class="icons1">
                     <span style="cursor: pointer" v-if="sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0 && sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i :id="post.PostID" @click="likePost($event)" class="fas fa-thumbs-up"></i>{{ postLikes.filter(s => s.PostID === post.PostID).length }}</span>
                     <span style="cursor: pointer" v-if="sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 1 && sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i style="color: yellowgreen" :id="post.PostID" @click="deleteLikePost($event)" class="fas fa-thumbs-up"></i>{{ postLikes.filter(s => s.PostID === post.PostID).length }}</span>
-                    <span v-if="sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 1 && sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i style="opacity: 0.3;" class="fas fa-thumbs-up"></i>{{ postLikes.filter(s => s.PostID === post.PostID).length }}</span>
+                    <span v-if="sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 1 && sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i style="opacity: 0.4;" class="fas fa-thumbs-up"></i>{{ postLikes.filter(s => s.PostID === post.PostID).length }}</span>
                     <span style="cursor: pointer" v-if="sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0 && sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i :id="post.PostID" @click="dislikePost($event)" class="fas fa-thumbs-down"></i>{{ postDislikes.filter(s => s.PostID === post.PostID).length }}</span>
                     <span style="cursor: pointer" v-if="sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 1 && sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i style="color: crimson" :id="post.PostID" @click="deleteDislikePost($event)" class="fas fa-thumbs-down"></i>{{ postDislikes.filter(s => s.PostID === post.PostID).length }}</span>
-                    <span v-if="sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 1 && sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i style="opacity: 0.3;" class="fas fa-thumbs-down"></i>{{ postDislikes.filter(s => s.PostID === post.PostID).length }}</span>
-                    <router-link :to="{ name: 'singlepost', params: { postId: post.PostID }}">
-                        <span ><i @click="markPostAsRead($event)" class="far fa-comments"></i></span>
+                    <span v-if="sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 1 && sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i style="opacity: 0.4;" class="fas fa-thumbs-down"></i>{{ postDislikes.filter(s => s.PostID === post.PostID).length }}</span>
+                    <router-link  :to="{ name: 'singlepost', params: { postId: post.PostID }}">
+                        <span><i @click="markPostAsRead($event)" :id="post.PostID" class="far fa-comments"></i></span>
                     </router-link>
                 </div>
                 <div @click="markPostAsRead($event)" :id="post.PostID" class="icons2">
@@ -28,7 +27,7 @@
                 </div>
             </div>
             <hr>
-            <h3 style=" color: black; margin-bottom: 4%; word-wrap:break-word; display: inline;">{{ post.DateTime }}</h3>
+            <h3 style=" color: black; margin-bottom: 4%; word-wrap:break-word; display: inline; text-align: right;">{{ post.DateTime }}</h3>
             <hr>
         </div>
     </div>
@@ -232,21 +231,7 @@ export default {
         forceRerender() {
             this.componentKey += 1;
         },
-        handleScroll () {
-              let postHeight = document.querySelectorAll('.icons2')
-              for ( let i = 0; i < postHeight.length; i++) {
-                if (postHeight[i].getBoundingClientRect().bottom < (window.innerHeight - 35)) {
-                    postHeight[i].style.visibility = 'hidden'
-                    let readPost = localStorage.getItem(sessionStorage.getItem('userId'))
-                    readPost = JSON.parse(readPost)
-                    readPost = {
-                        ...readPost,
-                        [postHeight[i].id]: postHeight[i].id
-                    }
-                    localStorage.setItem(sessionStorage.getItem('userId'), JSON.stringify(readPost));
-                }
-            }
-        },
+        
         markPostAsRead($event) {
             $event.target.style.visibility = 'hidden'
             let readPost = localStorage.getItem(sessionStorage.getItem('userId'))
@@ -309,6 +294,7 @@ h3 {
     justify-content: space-around;
     width: 40%;
     padding: 1% 0;
+    color: red;
 }
 
 
