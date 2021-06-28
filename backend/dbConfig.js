@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 
 let dbConfig = mysql.createConnection({
-  host: '172.20.144.1',
+  host: '172.24.192.1',
   user: 'root',
   password: 'paswd',
   database: 'groupmania',

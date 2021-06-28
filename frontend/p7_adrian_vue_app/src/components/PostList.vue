@@ -4,13 +4,14 @@
             <h1>Start sharing your gif with the community</h1>
         </div>
         <div v-else class="imagetitlecontainer" v-for="post in sortPostsDifferentUser" :key="post.postID">
-            <h2 style="color: black; display: inline;">Post Author Username : </h2>
-            <h3 style="color: blue; display: inline;">{{post.Username }}</h3>
+            <h2 style="color: black; display: inline;">Post Author Name : </h2>
+            <h3 style="color: blue; display: inline;">{{ post.Name }}</h3>
             <p></p>
             <h2 style="color: black; display: inline;">Title of subject : </h2>
             <h3 style=" color: blue; margin-bottom: 4%; word-wrap:break-word; display: inline;">{{ post.Title }}</h3>
             <img :src="post.ImageURL" alt="">
             <div class="iconcontainer">
+                
                 <div :key="componentKey" class="icons1">
                     <span style="cursor: pointer" v-if="sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0 && sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i :id="post.PostID" @click="likePost($event)" class="fas fa-thumbs-up"></i>{{ postLikes.filter(s => s.PostID === post.PostID).length }}</span>
                     <span style="cursor: pointer" v-if="sortPostLikesCurrentUser.filter(s => s.PostID === post.PostID).length === 1 && sortPostDislikesCurrentUser.filter(s => s.PostID === post.PostID).length === 0"><i style="color: yellowgreen" :id="post.PostID" @click="deleteLikePost($event)" class="fas fa-thumbs-up"></i>{{ postLikes.filter(s => s.PostID === post.PostID).length }}</span>
@@ -27,6 +28,8 @@
                 </div>
             </div>
             <hr>
+            <h3 style=" color: black; margin-bottom: 4%; word-wrap:break-word; display: inline;">{{ post.DateTime }}</h3>
+            <hr>
         </div>
     </div>
 </template>
@@ -38,6 +41,7 @@ export default {
     name: 'PostList',
     data() {
         return {
+            userDetails: [],
             posts: [],
             postLikes: [],
             postDislikes: [],
@@ -73,6 +77,25 @@ export default {
         }       
     },
     methods: {
+        getUserDetails() {
+            axios.get('http://localhost:3000/api/auth/profile/' + this.$route.params.userId,
+            { headers:
+                {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`, 
+                }
+            }).then((response) => {
+                if (response.data.status === '200') {
+                    this.userDetails = response.data.data[0]
+                } else if (response.data.status === '401') {
+                    alert(response.data.message)
+                    this.$store.commit('logout')
+                } else {
+                    alert(response.data.message)
+                }
+            }).catch((err => {
+                alert(err)
+            }))
+        },
         getPosts() {
             axios.get('http://localhost:3000/api/post',
             { headers:

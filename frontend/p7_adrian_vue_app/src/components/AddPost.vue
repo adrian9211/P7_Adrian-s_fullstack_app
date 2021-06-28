@@ -8,6 +8,10 @@
             <h1>Share Your thoughts </h1>
 
             <div>
+                <label for="name"><b>Name</b></label>
+                <input @input="validateFileInput($event)" v-model="name" type="text" name="name">
+            </div>
+            <div>
                 <label for="title"><b>Title of your subject</b></label>
                 <input @input="validateFileInput($event)" v-model="title" type="text" name="title">
             </div>
@@ -31,12 +35,33 @@ export default {
     name: 'addPost',
     data () {
         return {
+            userDetails: [],
             userId: sessionStorage.getItem('userId'),
+            name: '',
             title: '',
-            file: ''
+            file: '',
         }
     },
     methods: {
+        getUserDetails() {
+            axios.get('http://localhost:3000/api/auth/profile/' + this.$route.params.userId,
+            { headers:
+                {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`, 
+                }
+            }).then((response) => {
+                if (response.data.status === '200') {
+                    this.userDetails = response.data.data[0]
+                } else if (response.data.status === '401') {
+                    alert(response.data.message)
+                    this.$store.commit('logout')
+                } else {
+                    alert(response.data.message)
+                }
+            }).catch((err => {
+                alert(err)
+            }))
+        },
         previewFile ($event) {
             this.file = $event.target.files[0]
             if (this.file instanceof Blob) {
@@ -56,6 +81,7 @@ export default {
             formData.append('file', this.file)
             formData.append('userId', this.userId)
             formData.append('title', this.title)
+            formData.append('name', this.name)
             axios.post('http://localhost:3000/api/post', formData,
             { headers:
                 {

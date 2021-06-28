@@ -5,8 +5,9 @@ let fs = require('fs');
 exports.uploadPost = (req, res, next) => {
   const url = req.protocol + '://' + req.get('host');
   const fileName = url + '/images/' + req.file.filename;
-  let sql = 'INSERT INTO Posts (UserID, Title, ImageURL) VALUES ("'+req.body.userId+'", "'+req.body.title+'", "'+fileName+'")'
-  db.query(sql, function (err, result, fields) {
+  let sql = 'INSERT INTO Posts (UserID,Name, Title, ImageURL) VALUES ("'+req.body.userId+'", "'+req.body.name+'", "'+req.body.title+'", "'+fileName+'")'
+  //let sql2 = 'INSERT INTO Posts (Name) SELECT Name FROM Users'
+  db.query(sql, 'SELECT Users.Name FROM Users INNER JOIN Posts On Posts.Name', function (err, result, fields) {
     if (err) return res.json({
       status: err.status,
       message: err.sqlMessage,
@@ -125,7 +126,7 @@ exports.deletePost = (req, res, next) => {
 }
 
 exports.getAllPosts = (req, res, next) => {
-  let sql = 'SELECT Posts.PostID, Posts.UserID, Posts.Title, Posts.ImageURL, Posts.DateTime, Users.Username FROM Posts INNER JOIN Users ON Posts.UserID=Users.UserID;'
+  let sql = 'SELECT Posts.PostID, Posts.UserID, Posts.Title, Posts.Name, Posts.ImageURL, Posts.DateTime,  Users.Username FROM Posts INNER JOIN Users ON Posts.UserID=Users.UserID;'
   db.query(sql, function (err, result, fields) {
     if (err) return res.json({
       status: err.status,

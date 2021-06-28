@@ -8,6 +8,7 @@
             <h2>Name</h2>
             <p style="word-wrap:break-word;">{{ userDetails.Name }}</p>
         </div>
+        
         <div style="margin-bottom: 10%"  v-if="!deleteAccount">
             <h2>Username</h2>
             <p style="word-wrap:break-word;">{{ userDetails.Username }}</p>
