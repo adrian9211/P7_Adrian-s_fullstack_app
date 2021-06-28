@@ -14,6 +14,16 @@ npm install
 ```
 npm start
 ```
+### Data base:
+```
+Data base name: groupmania
+```
+
+```
+Import MySQL sql file. WAMP server used during development.
+```
+
+
 
 ### To run Frontend server:
 ```
@@ -42,4 +52,19 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### For virtual machine users like WSL or WSL2
 ```
 Add permissions in PHPMyAdmin for user root - host -current IP- password - paswd- and add all permisions
+```
+
+###  Software used during development
+
+```
+Visual Studio Code
+```
+```
+Google Chrome
+```
+```
+WSL2
+```
+```
+WAMP
 ```
