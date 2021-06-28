@@ -1,6 +1,7 @@
 \frontend\p7_adrian_vue_app\node_modules
 
 \node_modules
+\.history
 # local env files
 .env.local
 .env.*.local
